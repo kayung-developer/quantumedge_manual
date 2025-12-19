@@ -13,8 +13,9 @@
         5.  Typography & Content Elements
         6.  Code Blocks & Copy Button
         7.  Callout Boxes (Info, Warning, Tip)
-        8.  Interactive Elements (Search, Theme Toggle)
-        9.  Responsive Design
+        8.  Tables (New for Parameters)
+        9.  Interactive Elements (Search, Theme Toggle)
+        10. Responsive Design
         */
 
         /* 1. Global Styles & Variables */
@@ -142,22 +143,22 @@
             display: block;
         }
 
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
             color: var(--dark-text);
             margin-bottom: 1em;
             margin-top: 1.5em;
-            border-bottom: 1px solid var(--dark-border);
-            padding-bottom: 0.5em;
         }
+        
+        h1 { border-bottom: 1px solid var(--dark-border); padding-bottom: 0.5em; font-size: 2.5em; }
+        h2 { border-bottom: 1px solid var(--dark-border); padding-bottom: 0.2em; font-size: 2em; }
+        h3 { font-size: 1.5em; color: var(--primary-accent); }
+        h4 { font-size: 1.2em; font-weight: bold; margin-bottom: 0.5em; }
 
-        body.light-mode h1, body.light-mode h2, body.light-mode h3 {
+        body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4 {
             color: var(--light-text);
-            border-bottom: 1px solid var(--light-border);
+            border-color: var(--light-border);
         }
-
-        h1 { font-size: 2.5em; }
-        h2 { font-size: 2em; }
-        h3 { font-size: 1.5em; }
+        body.light-mode h3 { color: var(--primary-accent); }
 
         p, ul, ol {
             margin-bottom: 1em;
@@ -174,15 +175,6 @@
 
         a:hover {
             text-decoration: underline;
-        }
-
-        strong {
-            color: var(--dark-text);
-            font-weight: 600;
-        }
-
-        body.light-mode strong {
-            color: var(--light-text);
         }
 
         /* 6. Code Blocks & Copy Button */
@@ -204,7 +196,12 @@
         code {
             font-family: "SF Mono", "Consolas", "Liberation Mono", Menlo, monospace;
             font-size: 0.9em;
+            color: #ff7b72;
         }
+        
+        body.light-mode code { color: #cf222e; }
+
+        pre code { color: inherit; }
 
         .copy-btn {
             position: absolute;
@@ -255,7 +252,43 @@
             border-color: var(--green);
         }
 
-        /* 8. Interactive Elements */
+        /* 8. Tables (New) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: var(--dark-bg-secondary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--dark-border);
+        }
+        th {
+            background-color: var(--dark-border);
+            font-weight: bold;
+            color: var(--dark-text);
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        body.light-mode table {
+            background-color: var(--light-bg);
+            border: 1px solid var(--light-border);
+        }
+        body.light-mode th {
+            background-color: var(--light-bg-secondary);
+            border-bottom: 1px solid var(--light-border);
+            color: var(--light-text);
+        }
+        body.light-mode td {
+            border-bottom: 1px solid var(--light-border);
+        }
+
+        /* 9. Interactive Elements */
         #search-box {
             width: 100%;
             padding: 10px;
@@ -292,7 +325,7 @@
             color: var(--light-text-secondary);
         }
 
-        /* 9. Responsive Design */
+        /* 10. Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
                 position: relative;
@@ -323,14 +356,13 @@
                 <li><a href="#getting-started">Getting Started</a></li>
                 <li><a href="#main-interface">The Main Interface</a></li>
                 <li><a href="#connections">Connecting to Exchanges</a></li>
-                <li><a href="#portfolio">Portfolio Management</a></li>
-                <li><a href="#trading-engine">The Trading Engine</a></li>
-                <li><a href="#backtester">The Backtester</a></li>
-                <li><a href="#visual-builder">🎨 Visual Strategy Builder</a></li>
-                <li><a href="#advanced-tools">🚀 Advanced Tools</a></li>
-                <li><a href="#marketplace">🌐 The Marketplace</a></li>
-                <li><a href="#troubleshooting">Troubleshooting & FAQ</a></li>
-                <li><a href="#appendix-strategies">Appendix: Strategies</a></li>
+                <li><a href="#risk-math">Risk & Money Management</a></li>
+                <li><a href="#forex-strategies">Strategies: Forex & Crypto</a></li>
+                <li><a href="#binary-strategies">Strategies: Binary Options</a></li>
+                <li><a href="#visual-builder">Visual Strategy Builder</a></li>
+                <li><a href="#advanced-tools">Advanced Tools</a></li>
+                <li><a href="#marketplace">Marketplace</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
             </ul>
             <button id="theme-toggle">☀️</button>
         </nav>
@@ -339,238 +371,165 @@
             <article id="welcome" class="active">
                 <h1>Welcome to QuantumEdge Terminal</h1>
                 <p>This comprehensive user manual will guide you through every feature of the QuantumEdge Terminal, from initial setup to deploying advanced, AI-powered trading strategies. Our goal is to provide you with a powerful, intuitive, and robust tool for algorithmic trading.</p>
-                <div class="info">
-                    <strong>What is QuantumEdge Terminal?</strong><br>
-                    It is a multi-platform desktop application designed to automate your trading strategies on both MetaTrader 5 and Binance. It features a powerful backtesting engine, a no-code visual strategy builder, an AI-powered analysis toolkit, and a marketplace for premium strategies.
-                </div>
             </article>
 
             <article id="getting-started">
                 <h1>Getting Started</h1>
-                <h3>1. First Launch & Login</h3>
-                <p>When you first launch the application, you will be prompted to log in or register. This account is for the <strong>QuantumEdge Marketplace</strong>. It allows you to subscribe to premium strategies and publish your own creations. This is separate from your broker or exchange account.</p>
+                <h3>1. First Launch & Activation</h3>
+                <p>Upon launching the application, you will be prompted to activate your license using a Serial Key. This key connects you to the Marketplace server, allowing you to download strategies and verify your admin status.</p>
                 <h3>2. The .env File (For AI Strategy)</h3>
-                <p>To use the "AI Signal Confirmation" strategy, you must have a Google Gemini API key. Create a file named <code>.env</code> in the application's root directory and add your key like this:</p>
-<pre><code>GEMINI_API_KEY="your-secret-google-api-key"</code></pre>
+                <p>To use the "AI Signal Confirmation" strategy, ensure your Python environment has <code>tensorflow</code> installed. The application will automatically detect and load the LSTM models from the <code>models/</code> directory.</p>
             </article>
 
             <article id="main-interface">
                 <h1>The Main Interface</h1>
-                <p>The application is divided into three main areas for ease of use.</p>
-                <h3>1. The Left Control Panel</h3>
+                <p>The application is divided into three main areas:</p>
                 <ul>
-                    <li><strong>Connection:</strong> Select your platform (MT5/Binance) and enter your credentials here. You can also configure Telegram notifications.</li>
-                    <li><strong>Account Information:</strong> Once connected, this panel displays your live account balance, equity, profit, and free margin.</li>
-                    <li><strong>Strategy Engine:</strong> The main "Start/Stop Bot" button that activates or deactivates the live trading loop.</li>
-                    <li><strong>Market Chart:</strong> A professional candlestick chart that displays live and historical data for any symbol and timeframe.</li>
-                </ul>
-                <h3>2. The Right Tab Panel</h3>
-                <p>This is where you'll spend most of your time managing and analyzing strategies.</p>
-                <ul>
-                    <li><strong>Portfolio & Live Positions:</strong> Manage your personal collection of strategies and monitor your currently open trades.</li>
-                    <li><strong>Visual Strategy Builder:</strong> A no-code, drag-and-drop canvas for building custom strategies.</li>
-                    <li><strong>Backtester:</strong> Test your strategies against historical data before deploying them live.</li>
-                    <li><strong>Advanced Analytics:</strong> Visualize your backtest and live performance with equity curves and drawdown charts.</li>
-                    <li><strong>Marketplace:</strong> Discover, subscribe to, and publish trading strategies.</li>
-                    <li><strong>System Logs:</strong> A raw log of all actions taken by the application and the trading bot.</li>
-                </ul>
-                <h3>3. The Menu and Status Bar</h3>
-                <ul>
-                    <li><strong>Menu Bar (Top):</strong> Contains access to all features, including advanced tools, preferences, and safety features like the "Panic" button.</li>
-                    <li><strong>Status Bar (Bottom):</strong> Provides at-a-glance information about your connection status and whether the trading bot is active.</li>
+                    <li><strong>Control Panel (Left):</strong> Connection settings, live account balance, and the "Start Bot" engine switch.</li>
+                    <li><strong>Workspace (Right):</strong> Tabs for managing your Portfolio, Backtesting, Building Strategies, and Analytics.</li>
+                    <li><strong>Logs (Bottom):</strong> A real-time system log displaying every action the bot takes.</li>
                 </ul>
             </article>
 
             <article id="connections">
                 <h1>Connecting to Exchanges</h1>
-                <h3>Connecting to MetaTrader 5</h3>
-                <ol>
-                    <li>Select "MetaTrader 5" from the Platform dropdown.</li>
-                    <li>Enter your MT5 <strong>Account Number</strong> in the "Login" field.</li>
-                    <li>Enter your MT5 <strong>Main Password</strong> in the "Password" field.</li>
-                    <li>Enter your broker's <strong>Server Name</strong> (e.g., "XMTrading-MT5 3").</li>
-                    <li>Click "Connect". The status bar will update to show the connection status.</li>
-                </ol>
-                <div class="warning">
-                    <strong>Important:</strong> The MetaTrader 5 terminal must be installed and running on your computer for the connection to succeed.
-                </div>
-                <h3>Connecting to Binance</h3>
-                <ol>
-                    <li>Select "Binance" from the Platform dropdown.</li>
-                    <li>Enter your Binance <strong>API Key</strong>.</li>
-                    <li>Enter your Binance <strong>API Secret</strong>.</li>
-                    <li>Click "Connect".</li>
-                </ol>
-                <div class="tip">
-                    For security, it is highly recommended to create a new API key specifically for this application and only enable Spot Trading permissions.
-                </div>
+                <h3>MetaTrader 5</h3>
+                <p>Requires the MT5 Terminal to be installed and running. Ensure "Allow Algorithmic Trading" is enabled in MT5 options.</p>
+                <h3>Binance</h3>
+                <p>Requires API Key and Secret. Enable "Spot Trading" permissions in your Binance API settings.</p>
             </article>
 
-            <article id="portfolio">
-                <h1>Portfolio Management</h1>
-                <p>The "Portfolio & Live Positions" tab is your central hub for managing the strategies you want the bot to trade.</p>
-                <h3>Adding a Strategy</h3>
-                <ol>
-                    <li>Click the <strong>"Add Strategy"</strong> button.</li>
-                    <li>In the dialog, select a base strategy from the dropdown (e.g., "MACD Trend w/ ADX Filter").</li>
-                    <li>Enter the Symbol (e.g., "BTC/USD") and Timeframe you want to trade.</li>
-                    <li>Adjust the strategy-specific parameters and risk settings.</li>
-                    <li>Click "OK" to add it to your portfolio.</li>
-                </ol>
-                <h3>Activating a Strategy</h3>
-                <p>A strategy must be active for the trading bot to use it. To activate one:</p>
-                <ol>
-                    <li>Select the strategy in the portfolio table.</li>
-                    <li>Click the <strong>"Activate"</strong> button. Its status will change to "ACTIVE".</li>
-                    <li>To deactivate, select it and click "Deactivate".</li>
-                </ol>
-                 <h3>Saving and Loading Portfolios</h3>
-                 <p>You can save different collections of strategies for different market conditions. Use the <strong>File > Save Portfolio As...</strong> menu option to save your current setup. Use <strong>File > Load Portfolio...</strong> to load a previously saved file.</p>
-            </article>
+            <article id="risk-math">
+                <h1>Risk & Money Management Math</h1>
+                <p>This is the most critical section for long-term profitability. QuantumEdge uses <strong>Dynamic Position Sizing</strong> based on volatility (ATR).</p>
 
-            <article id="trading-engine">
-                <h1>The Trading Engine</h1>
-                <h3>Starting the Bot</h3>
-                <p>Once you are connected to an exchange and have at least one <strong>active</strong> strategy in your portfolio, you can start the trading bot by clicking the <strong>"Start Bot"</strong> button in the left panel. The status bar will update to "BOT: ACTIVE".</p>
-                <h3>How It Works</h3>
-                <p>The trading engine operates on a 30-second cycle:</p>
-                <ol>
-                    <li>It loops through all of your <strong>active</strong> strategies.</li>
-                    <li>For each strategy, it fetches the latest market data.</li>
-                    <li>It runs the strategy's logic to see if a BUY, SELL, or CLOSE signal is generated.</li>
-                    <li>It checks if a position for that specific strategy already exists on that symbol.</li>
-                    <li>If a signal is found and no position exists, it executes a trade. If a CLOSE signal is found and a position *does* exist, it closes the trade.</li>
-                    <li>It then waits 30 seconds and repeats the cycle.</li>
-                </ol>
-                <div class="info">
-                    The bot will <strong>never</strong> open a new trade for a strategy that already has an open position on the same symbol. This prevents duplicate trades.
+                <h3>1. Calculating the Stop Loss (SL)</h3>
+                <p>The bot does not use fixed pips. It uses the <strong>Average True Range (ATR)</strong> to adapt to market speed.</p>
+                <div class="callout info">
+                    <strong>Formula:</strong> <code>SL_Distance = ATR * atr_sl_multiplier</code>
                 </div>
-                <h3>🚨 The Panic Button</h3>
-                <p>In the <strong>Trading > PANIC: Close All Positions</strong> menu, you will find a critical safety feature. Clicking this (and confirming) will immediately send market close orders for every single position open on your account, regardless of which strategy opened them. This is for emergency use during extreme market volatility.</p>
-            </article>
+                <p><em>Example:</em> If ATR is 20 pips and multiplier is 2.0, SL is 40 pips. If the market slows down and ATR is 10 pips, SL tightens to 20 pips.</p>
 
-            <article id="backtester">
-                <h1>The Backtester</h1>
-                <p>The backtester allows you to test your strategies against thousands of bars of historical data to evaluate their performance before risking real money.</p>
-                <h3>Running a Backtest</h3>
-                <ol>
-                    <li>Go to the "Backtester" tab.</li>
-                    <li>Select a strategy from your portfolio using the dropdown.</li>
-                    <li>The Symbol and Timeframe will be pre-filled from your strategy config, but you can override them.</li>
-                    <li>Click the <strong>"Run Backtest"</strong> button.</li>
-                    <li>The process will run, showing progress in the bar and detailed logs in the text area.</li>
-                </ol>
-                <h3>Interpreting the Results</h3>
-                <p>Once complete, the "Key Metrics" will be populated, and you will be automatically switched to the "Advanced Analytics" tab.</p>
+                <h3>2. Calculating Take Profit (TP)</h3>
+                <p>The Take Profit is derived from the Stop Loss using your Risk-Reward Ratio.</p>
+                <div class="callout info">
+                    <strong>Formula:</strong> <code>TP_Distance = SL_Distance * rr_ratio</code>
+                </div>
+                <p><em>Example:</em> If SL is 40 pips and R:R is 1.5, TP is 60 pips.</p>
+
+                <h3>3. Calculating Lot Size (Volume)</h3>
+                <p>The bot calculates how many lots to buy so that if the SL is hit, you only lose exactly your defined Risk Percentage.</p>
+                <div class="callout info">
+                    <strong>Formula:</strong> <code>LotSize = (Equity * Risk%) / (SL_Points * TickValue)</code>
+                </div>
+                
+                <h3>4. The $100 Account Rule (Margin Auto-Scaler)</h3>
+                <p>If your account is small (e.g., $100), the calculated Lot Size might be too small (0.001) or too large for your margin. The bot includes a <strong>Safety Shrinker</strong>:</p>
                 <ul>
-                    <li><strong>Total Return:</strong> The total percentage gain or loss over the backtest period.</li>
-                    <li><strong>Final Equity:</strong> The final account balance, assuming a start of $10,000.</li>
-                    <li><strong>Max Drawdown:</strong> The largest peak-to-trough drop in equity, representing the biggest loss streak. Lower is better.</li>
-                    <li><strong>Sharpe Ratio:</strong> Measures risk-adjusted return. Generally, a value > 1 is considered good.</li>
-                    <li><strong>Equity Curve Chart:</strong> A visual representation of your account balance over time. An ideal curve is smooth and consistently upward-sloping.</li>
+                    <li>If calculated risk volume is &lt; 0.01 (Broker Min), it forces <strong>0.01 Lots</strong>.</li>
+                    <li>If volume requires more margin than you have, it <strong>shrinks</strong> the volume step-by-step until it fits your wallet.</li>
                 </ul>
+            </article>
+
+            <article id="forex-strategies">
+                <h1>Strategies: Forex & Crypto (Swing)</h1>
+                <p>These strategies are designed for MetaTrader 5 and Binance. They operate on candle closes (e.g., H1, M15).</p>
+
+                <h3>1. SuperTrend & ADX (Trend Filtered)</h3>
+                <p><strong>Best For:</strong> Trending Markets (Gold, Crypto, GBPJPY).<br>
+                <strong>Logic:</strong> Enters when SuperTrend flips direction, BUT only if ADX > 25 (Strong Trend) and Price aligns with EMA 200.</p>
+                <table>
+                    <tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
+                    <tr><td>st_period</td><td>10</td><td>SuperTrend Lookback Period</td></tr>
+                    <tr><td>st_multiplier</td><td>3.0</td><td>SuperTrend Factor (Higher = Wider)</td></tr>
+                    <tr><td>adx_threshold</td><td>25</td><td>Min ADX value to allow trades</td></tr>
+                    <tr><td>trend_ema_period</td><td>200</td><td>Long-term trend filter</td></tr>
+                </table>
+
+                <h3>2. RSI & Bollinger (Regime Filtered)</h3>
+                <p><strong>Best For:</strong> Ranging Markets (EURGBP, AUDCAD).<br>
+                <strong>Logic:</strong> Mean Reversion. Buys when price hits Lower Band + RSI Oversold. <br>
+                <strong>Unique Feature:</strong> Uses an ADX Ceiling. It will <strong>NOT</strong> trade if ADX > 25 (Trend), protecting you from crashes.</p>
+                <table>
+                    <tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
+                    <tr><td>bb_period</td><td>20</td><td>Bollinger Band Length</td></tr>
+                    <tr><td>bb_std_dev</td><td>2.0</td><td>Standard Deviation (Width)</td></tr>
+                    <tr><td>adx_ranging_threshold</td><td>25</td><td>Max ADX allowed (Must be calm)</td></tr>
+                </table>
+
+                <h3>3. Smart Money Concept (SMC)</h3>
+                <p><strong>Best For:</strong> Volatile Pairs (XAUUSD, BTCUSD).<br>
+                <strong>Logic:</strong> Identifies "Order Blocks" and "Fair Value Gaps" (FVG) created by institutional moves. It places trades when price retraces into these zones, aligned with the EMA 200.</p>
+                <table>
+                    <tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
+                    <tr><td>atr_multiplier</td><td>2.5</td><td>Used to define the width of the FVG zone</td></tr>
+                </table>
+
+                <h3>4. AI Signal Confirmation (LSTM)</h3>
+                <p><strong>Best For:</strong> All Pairs.<br>
+                <strong>Logic:</strong> A Deep Learning Neural Network analyzes the last 60 candles (OHLCV). It outputs a probability (0-100%). We only trade if the AI Confidence > 70% AND the technical trend agrees.</p>
+                <table>
+                    <tr><th>Parameter</th><th>Default</th><th>Description</th></tr>
+                    <tr><td>confidence_threshold</td><td>0.70</td><td>Minimum AI confidence (0.0 to 1.0)</td></tr>
+                </table>
+            </article>
+
+            <article id="binary-strategies">
+                <h1>Strategies: Binary Options</h1>
+                <p>These strategies are tuned for High Frequency (M1) trading and are ideal for generating signals for auto-clickers.</p>
+
+                <h3>1. Binary: Bollinger Band Bounce</h3>
+                <p><strong>Logic:</strong> Reversal. Signals a PUT when price pierces the Upper Band, or CALL at Lower Band.<br>
+                <strong>Price Action Filter:</strong> Rejects the trade if the candle body is massive (Momentum Blast), preventing losses during breakouts.</p>
+
+                <h3>2. Binary: ADX Breakout</h3>
+                <p><strong>Logic:</strong> Trend Follow. Signals CALL when +DI crosses -DI, provided ADX > 30.<br>
+                <strong>Confirmation:</strong> Requires a widening gap between DI lines to ensure buyer dominance.</p>
+
+                <h3>3. Binary: RSI Extremes Reversal</h3>
+                <p><strong>Logic:</strong> Scalping. Signals reversal when RSI hits extreme levels (e.g., 90 or 10).<br>
+                <strong>Pivot Check:</strong> Waits for the RSI to actually "hook" back (turn around) before signaling, to avoid catching a falling knife.</p>
             </article>
 
             <article id="visual-builder">
-                <h1>🎨 Visual Strategy Builder</h1>
-                <p>The Visual Strategy Builder is a powerful no-code tool that lets you design custom trading logic by connecting nodes on a canvas.</p>
-                <h3>The Core Nodes</h3>
+                <h1>Visual Strategy Builder</h1>
+                <p>Create your own strategies without coding. Drag, drop, and connect nodes.</p>
                 <ul>
-                    <li><strong>Indicator Node:</strong> The starting point. Provides a data series like RSI, EMA, or MACD.</li>
-                    <li><strong>Condition Node:</strong> Compares an input to a value (e.g., "Is RSI Below 30?"). Outputs a True/False signal.</li>
-                    <li><strong>Operator Node:</strong> Combines two True/False signals with AND/OR logic.</li>
-                    <li><strong>Action Node:</strong> The final step. Takes a True signal and executes a BUY, SELL, or CLOSE action.</li>
+                    <li><strong>Indicator Node:</strong> Source of data (RSI, Price, EMA).</li>
+                    <li><strong>Condition Node:</strong> Logic check (Greater Than, Crosses Over).</li>
+                    <li><strong>Action Node:</strong> The result (Buy/Sell).</li>
                 </ul>
-                <h3>Example: Building an RSI Reversion Strategy</h3>
-                <ol>
-                    <li>Add an <strong>Indicator Node</strong>. Set its type to "RSI" and parameter to "14".</li>
-                    <li>Add a <strong>Condition Node</strong>. Set its type to "Below" and value to "30".</li>
-                    <li>Add an <strong>Action Node</strong>. Set its type to "BUY".</li>
-                    <li><strong>Connect the nodes:</strong> Drag a line from the output socket of the RSI node to the input socket of the Condition node. Then, drag a line from the output of the Condition node to the input of the BUY Action node.</li>
-                    <li>Give your strategy a name (e.g., "My RSI Buyer") and click <strong>"Save to Portfolio"</strong>.</li>
-                </ol>
-                <p>Your new visual strategy will now appear in your portfolio and can be backtested and run live just like any coded strategy!</p>
+                <p><em>Example:</em> Connect <code>RSI Node</code> -> <code>Condition (Below 30)</code> -> <code>Action (BUY)</code>.</p>
             </article>
 
             <article id="advanced-tools">
-                <h1>🚀 Advanced Tools</h1>
-                <p>The <strong>Analysis & Tools</strong> menu contains features for power users to gain a deeper edge.</p>
-                <h3>Strategy Optimizer</h3>
-                <p>This tool uses a genetic algorithm to find the most profitable parameters for a strategy. It will run hundreds of backtests in the background, evolving the parameters (like RSI period, EMA length) over many "generations" to find the optimal combination for the selected market.</p>
+                <h1>Advanced Tools</h1>
+                <h3>Strategy Optimizer (Genetic)</h3>
+                <p>Uses evolution to find the perfect parameters. It runs thousands of simulations, "breeding" the best settings to maximize profit and minimize drawdown.</p>
                 <h3>Portfolio Correlation Matrix</h3>
-                <p>This tool analyzes your live trade history and shows you how correlated your active strategies are. A high correlation (close to +1.0) means two strategies tend to win and lose at the same time. A low or negative correlation is often desirable as it means your strategies are diversified, smoothing your equity curve.</p>
+                <p>Visualizes if your strategies are trading identical moves. Use this to diversify risk (ensure you don't have 5 strategies all buying EURUSD at the same time).</p>
                 <h3>ML Model Manager</h3>
-                <p>This dashboard allows you to manage the AI model used by the "AI Signal Confirmation" strategy. Here you can see model details and, most importantly, trigger the retraining script (<code>train_model.py</code>). This allows you to update the model's intelligence with the latest market data.</p>
-                <h3>Economic Calendar</h3>
-                <p>Displays high-impact economic news events for the selected day. This is crucial for avoiding periods of extreme market volatility that can negatively affect algorithmic strategies.</p>
+                <p>Allows you to retrain the LSTM Neural Network on specific pairs and timeframes. Essential for adapting the AI to changing market conditions.</p>
             </article>
 
             <article id="marketplace">
-                <h1>🌐 The Marketplace</h1>
-                <p>The marketplace is an ecosystem for discovering and sharing strategies.</p>
-                <h3>Subscribing to Strategies</h3>
-                <ol>
-                    <li>Go to the "Marketplace" tab.</li>
-                    <li>Browse the available strategies from approved creators.</li>
-                    <li>Click the "Subscribe" button for a strategy you are interested in.</li>
-                    <li>A payment dialog will appear, providing a unique TRC20 USDT address to send the subscription fee to.</li>
-                    <li>Once the blockchain transaction is confirmed, the strategy will be automatically added to your portfolio under the name "🌐 [Strategy Name]".</li>
-                </ol>
-                <h3>Publishing Your Strategy</h3>
-                <p>If you have created a profitable strategy using the Visual Builder, you can submit it to the marketplace for others to subscribe to.</p>
-                <ol>
-                    <li>Go to <strong>Marketplace > Publish a Strategy...</strong> in the menu.</li>
-                    <li>Select one of your saved <strong>Visual Strategies</strong> from the dropdown.</li>
-                    <li>Write a compelling description and set your monthly subscription price in USD.</li>
-                    <li>Click "Submit for Review". Our team will backtest your strategy, and if approved, it will be listed in the marketplace.</li>
-                </ol>
+                <h1>The Marketplace</h1>
+                <p>A decentralized hub to share and rent strategies.</p>
+                <ul>
+                    <li><strong>Subscribe:</strong> Rent high-performance strategies using USDT (TRC20).</li>
+                    <li><strong>Publish:</strong> Upload your Visual or Coded strategies. If approved by Admins, you earn revenue when others subscribe.</li>
+                </ul>
             </article>
 
             <article id="troubleshooting">
-                <h1>Troubleshooting & FAQ</h1>
-                <h3>MT5 Connection Failed: "initialize() failed"</h3>
-                <p>This is the most common issue. Check the following:</p>
-                <ul>
-                    <li>Is the MetaTrader 5 terminal application running on your computer? It must be.</li>
-                    <li>Are your Login, Password, and Server details 100% correct?</li>
-                    <li>In MT5, go to Tools > Options > Expert Advisors. Is "Allow algorithmic trading" checked?</li>
-                </ul>
-                <h3>AI Strategy Disabled / DLL Error</h3>
-                <p>The "AI Signal Confirmation" strategy requires a specific Microsoft runtime library. If you see a "DLL load failed" error in the logs, you need to install it.</p>
-                <div class="tip">
-                    <strong>Solution:</strong> Search for and install the "Microsoft Visual C++ Redistributable" for Visual Studio 2015-2022. Download the X64 version from the official Microsoft website.
-                </div>
-                <h3>Bot is Active but Not Placing Trades</h3>
-                <ul>
-                    <li>Are any strategies in your portfolio set to "ACTIVE"?</li>
-                    <li>Check the System Logs. The strategy might be generating "HOLD" signals. This is normal if market conditions don't meet the strategy's criteria.</li>
-                    <li>Does your account have sufficient free margin to open a trade?</li>
-                </ul>
-            </article>
-
-            <article id="appendix-strategies">
-                <h1>Appendix: Included Strategies</h1>
-                <h3>Trend Following</h3>
-                <ul>
-                    <li><strong>Adaptive EMA Crossover:</strong> A classic trend strategy using a fast and slow Exponential Moving Average.</li>
-                    <li><strong>MACD Trend w/ ADX Filter:</strong> Uses MACD crossovers for signals but only enters during strong trends as confirmed by the ADX indicator.</li>
-                    <li><strong>SuperTrend w/ ADX Filter:</strong> Enters on a SuperTrend direction change, filtered by the ADX for trend strength.</li>
-                </ul>
-                <h3>Mean Reversion</h3>
-                <ul>
-                    <li><strong>RSI & Bollinger Reversion:</strong> A classic range-trading strategy. Buys when price hits the lower Bollinger Band and RSI is oversold; sells on the opposite conditions.</li>
-                </ul>
-                 <h3>Breakout</h3>
-                <ul>
-                    <li><strong>Volatility Squeeze:</strong> Identifies periods of low volatility (a "squeeze") and enters a trade when the price breaks out forcefully in either direction.</li>
-                </ul>
-                 <h3>Advanced</h3>
-                <ul>
-                    <li><strong>Ichimoku Cloud Breakout:</strong> A comprehensive trend strategy based on the Japanese Ichimoku Kinko Hyo indicator.</li>
-                    <li><strong>Smart Money Concept (SMC):</strong> An advanced strategy that attempts to identify high-probability "Order Blocks" and "Fair Value Gaps" left by institutional traders.</li>
-                    <li><strong>AI Signal Confirmation:</strong> A hybrid strategy that first finds a basic EMA crossover signal and then uses a machine learning model to confirm if the trade has a high probability of success.</li>
-                    <li><strong>Optimizer Portfolio:</strong> A "meta-strategy" that monitors signals from a pool of other strategies and only trades when multiple strategies agree (confluence), filtering signals based on the overall market trend.</li>
-                </ul>
+                <h1>Troubleshooting</h1>
+                <table style="width: 100%;">
+                    <tr><th>Error Message</th><th>Solution</th></tr>
+                    <tr><td>MT5 Error: 10016, Invalid stops</td><td>Stop Loss is too close. Increase <code>atr_sl_multiplier</code> or switch to a higher timeframe.</td></tr>
+                    <tr><td>Margin Fail. Req > Free</td><td>Account too small for the trade. Decrease <code>risk_percent</code> or increase Leverage.</td></tr>
+                    <tr><td>Data stale (xxx seconds lag)</td><td>Your MT5 terminal is disconnected or market is closed. Restart MT5.</td></tr>
+                    <tr><td>TensorFlow not installed</td><td>Install the C++ Redistributable and run <code>pip install tensorflow</code>.</td></tr>
+                </table>
             </article>
 
         </main>
@@ -604,7 +563,6 @@
                 });
             });
 
-            // Handle initial load with hash
             if (window.location.hash) {
                 showArticle(window.location.hash.substring(1));
             }
@@ -623,20 +581,17 @@
                 });
             });
 
-            // --- Code Block Copy Buttons ---
+            // --- Copy Button Logic ---
             document.querySelectorAll('pre').forEach(pre => {
                 const button = document.createElement('button');
                 button.className = 'copy-btn';
                 button.textContent = 'Copy';
                 pre.appendChild(button);
-
                 button.addEventListener('click', () => {
                     const code = pre.querySelector('code').innerText;
                     navigator.clipboard.writeText(code).then(() => {
                         button.textContent = 'Copied!';
-                        setTimeout(() => {
-                            button.textContent = 'Copy';
-                        }, 2000);
+                        setTimeout(() => button.textContent = 'Copy', 2000);
                     });
                 });
             });
@@ -644,11 +599,7 @@
             // --- Theme Toggle ---
             themeToggle.addEventListener('click', () => {
                 document.body.classList.toggle('light-mode');
-                if (document.body.classList.contains('light-mode')) {
-                    themeToggle.textContent = '🌙';
-                } else {
-                    themeToggle.textContent = '☀️';
-                }
+                themeToggle.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
             });
         });
     </script>
